@@ -11,12 +11,12 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import DateTimePicker from "../src/datepicker/datepicker";
 import axios from "axios";
 
 const Register = ({ navigation }) => {
@@ -30,6 +30,8 @@ const Register = ({ navigation }) => {
   const [dateOpen, setDateOpen] = useState(false);
   const [check, setCheck] = useState();
   const [checkPw, setCheckPw] = useState();
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
 
   React.useEffect(() => {
     console.log(username);
@@ -76,6 +78,21 @@ const Register = ({ navigation }) => {
         console.log(r.data);
       })
       .catch((e) => console.log(e));
+  };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+  };
+
+  const showMode = (currentMode) => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
   };
 
   const onPressHandler = () => {
@@ -186,13 +203,23 @@ const Register = ({ navigation }) => {
                 Izaberi
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity style={{ marginTop: 1 }}>
+              <Text onPress={showDatepicker} style={styles.btn1}>
+                {moment(date).format('ll')}
+              </Text>
+            </TouchableOpacity>
 
             <View style={styles.row}>
-              <DateTimePicker
-                date={date}
-                setDate={setDate}
-                style={styles.datepicker}
-              />
+              {show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  mode={mode}
+                  is24Hour={true}
+                  display="default"
+                  onChange={onChange}
+                />
+              )}
             </View>
           </View>
         </Modal>
@@ -342,6 +369,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#98B279",
     color: "#fff",
     marginTop: 70,
+  },
+
+  btn1: {
+    alignSelf: "center",
+    fontSize: 25,
+    padding: 10,
+    fontFamily: "SemiBold",
+    color: "#000",
+    marginTop: 40,
+    textDecorationLine:'underline'
   },
 
   checker: {
