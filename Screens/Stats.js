@@ -234,7 +234,7 @@ const Stats = () => {
 const styles = StyleSheet.create({
   heroContainer: {
     width: "100%",
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("window").height + 60,
     backgroundColor: "#FFF",
     paddingHorizontal: 10,
   },

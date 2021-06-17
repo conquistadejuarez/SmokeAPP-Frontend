@@ -33,9 +33,7 @@ const Register = ({ navigation }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  React.useEffect(() => {
-    console.log(username);
-  }, [username]);
+  
 
   React.useEffect(() => {
     getBrands();
@@ -43,11 +41,22 @@ const Register = ({ navigation }) => {
 
   const displayBrand = () => {
     if (brand) {
-      return brand;
+      return brand.name;
     } else {
-      return <Text>Izaberi brend</Text>;
+      return <Text>Izaberite brend</Text>;
     }
   };
+
+  const displayDate = () => {
+    if (moment(date).format('ll')) {
+      return moment(date).format('ll');
+    } else {
+      return <Text>Izaberi datum prestanka</Text>;
+    }
+  };
+
+
+  
 
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
@@ -57,7 +66,7 @@ const Register = ({ navigation }) => {
       username: username,
       password: password,
       average_per_day: averagePerDay,
-      brand_smoking: brand,
+      brand_smoking: brand.id,
       quit_date: date,
     };
     axios
@@ -73,9 +82,9 @@ const Register = ({ navigation }) => {
       .get("https://smokeapp.digitalcube.rs/api/brands")
 
       .then((r) => {
-        console.log("asdfghj");
+        
         setBrands(r.data);
-        console.log(r.data);
+        
       })
       .catch((e) => console.log(e));
   };
@@ -110,7 +119,7 @@ const Register = ({ navigation }) => {
 
   const checkUsername = () => {
     if (!username) {
-      setCheck("Molimo Vas upisite vas zeljeni username");
+      setCheck("Molimo Vas upišite vaš zeljeni username");
     } else if (username.length < 4) {
       setCheck("Username mora imati makar 4 karaktera");
     } else {
@@ -120,7 +129,7 @@ const Register = ({ navigation }) => {
 
   const checkPassword = () => {
     if (!password) {
-      setCheckPw("Molimo vas upisite zeljeni password");
+      setCheckPw("Molimo vas upišite zeljeni password");
     } else if (password.length < 6) {
       setCheckPw("Password mora da ima makar 6 karaktera");
     } else if (!password.match(regex)) {
@@ -137,7 +146,6 @@ const Register = ({ navigation }) => {
       setCheckPw(null);
     }
   };
-
   return (
     <KeyboardAvoidingView keyboardVerticalOffset={35}>
       <View style={styles.heroContainer}>
@@ -155,7 +163,7 @@ const Register = ({ navigation }) => {
             value={username}
             onChangeText={(value) => setUsername(value)}
             style={styles.formaText}
-            placeholder={"Vase Ime"}
+            placeholder={"Vaše Ime"}
             onEndEditing={() => checkUsername()}
           />
         </View>
@@ -167,7 +175,7 @@ const Register = ({ navigation }) => {
             onChangeText={(value) => setPassword(value)}
             secureTextEntry={isSecureEntry}
             style={styles.formaText1}
-            placeholder={"Vasa sifra"}
+            placeholder={"Vaša sifra"}
             onEndEditing={() => checkPassword()}
           />
           <TouchableOpacity
@@ -200,7 +208,7 @@ const Register = ({ navigation }) => {
           <View style={styles.modalContent}>
             <TouchableOpacity style={{ marginTop: 50 }}>
               <Text onPress={() => setDateOpen(false)} style={styles.btn}>
-                Izaberi
+                Potvrdi
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={{ marginTop: 1 }}>
@@ -228,8 +236,8 @@ const Register = ({ navigation }) => {
           <Text
             onPress={() => setDateOpen(true)}
             style={{ color: "#959595", width: "100%" }}
-          >
-            {returnDate()}
+          > Datum prestanka :&nbsp;
+            {displayDate()}
           </Text>
         </View>
 
@@ -240,7 +248,7 @@ const Register = ({ navigation }) => {
           />
           <View style={styles.modalContent}>
             <Text onPress={() => setModalOpen(false)} style={styles.btn}>
-              Izaberi
+              Potvrdi
             </Text>
 
             <View style={styles.row}>
@@ -248,6 +256,7 @@ const Register = ({ navigation }) => {
                 style={{ width: "100%", height: 100, color: "#959595" }}
                 itemStyle={{ width: "100%", color: "#333" }}
                 selectedValue={brand}
+                // onChange={(item)=> {setBrand(item);console.log(item);}}
                 onValueChange={(itemValue, itemIndex) => setBrand(itemValue)}
               >
                 <Picker.Item
@@ -259,7 +268,7 @@ const Register = ({ navigation }) => {
                   return (
                     <Picker.Item
                       label={element.name}
-                      value={element.id}
+                      value={element}
                       key={element.id}
                     />
                   );
@@ -311,7 +320,7 @@ const Register = ({ navigation }) => {
 const styles = StyleSheet.create({
   heroContainer: {
     width: "100%",
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("window").height + 60,
   },
 
   backgroundImg: {
@@ -336,13 +345,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 16,
     borderWidth: 2,
-    marginTop: 15,
     paddingHorizontal: 10,
     backgroundColor: "#F2F2F2",
     borderColor: "#E8E8E8",
     borderRadius: 8,
     paddingVertical: 7,
     alignItems: "center",
+    marginTop:15,
+    marginBottom:15,
   },
 
   formaText: {
@@ -384,9 +394,8 @@ const styles = StyleSheet.create({
   checker: {
     color: "#f72a2a",
     fontFamily: "Regular",
-    fontSize: 12,
+    fontSize: 10,
     alignSelf: "center",
-    marginTop: 10,
   },
 });
 

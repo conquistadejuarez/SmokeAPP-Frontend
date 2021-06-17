@@ -266,7 +266,7 @@ const Health = () => {
 const styles = StyleSheet.create({
   heroContainer: {
     width: "100%",
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("window").height + 20,
     backgroundColor: "#FFF",
     padding: 10,
   },

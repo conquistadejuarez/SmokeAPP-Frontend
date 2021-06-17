@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Dimensions,
   TextInput,
+  SafeAreaView
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -41,7 +42,7 @@ const Login = ({ navigation }) => {
       })
       .catch((e) => {
         console.log(e);
-        setCheckLogin("Pogresna kombinacija imena i sifre! Pokusajte opet.");
+        setCheckLogin("Pogresna kombinacija imena i šifre! Pokušajte opet.");
       });
   };
 
@@ -50,6 +51,7 @@ const Login = ({ navigation }) => {
   };
 
   return (
+    <SafeAreaView>
     <View style={styles.heroContainer}>
       <ImageBackground
         source={require("../src/images/hero.png")}
@@ -65,7 +67,7 @@ const Login = ({ navigation }) => {
           value={username.toLowerCase()}
           onChangeText={(value) => setUsername(value)}
           style={styles.formaText}
-          placeholder={"Vase Ime"}
+          placeholder={"Vaše Ime"}
         />
       </View>
 
@@ -75,7 +77,7 @@ const Login = ({ navigation }) => {
           onChangeText={(value) => setPassword(value)}
           secureTextEntry={isSecureEntry}
           style={styles.formaText1}
-          placeholder={"Vasa sifra"}
+          placeholder={"Vaša sifra"}
         />
         <TouchableOpacity
           onPress={() => {
@@ -116,13 +118,16 @@ const Login = ({ navigation }) => {
         <Text style={{ color: "black" }}>Nemate nalog?</Text> Registrujte se
       </Text>
     </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   heroContainer: {
     width: "100%",
-    height: Dimensions.get("window").height,
+    height: Dimensions.get("window").height + 60,
+    backgroundColor:'#FFF',
+    
   },
 
   backgroundImg: {

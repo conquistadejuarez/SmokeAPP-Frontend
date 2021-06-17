@@ -28,6 +28,11 @@ return(
             component={Login}
             options={{
               header: () => null,
+
+              style: {
+                height: 0,
+                width: 0,
+              }
             }}
             
           />
