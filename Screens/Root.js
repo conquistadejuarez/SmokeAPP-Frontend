@@ -121,17 +121,27 @@ const Root = () => {
       </TouchableHighlight>
 
       <View style={styles.centeredView}>
+ 
+        
         <Modal
-          animationType="fade"
+          animationType="slide"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}
         >
+
+<ImageBackground
+          source={require("../src/images/About.png")}
+          style={styles.backgroundImg}
+        />
           <View style={styles.centeredView}>
+
             <View style={styles.modalView}>
+
               <Text style={styles.modalTextMain}>SmokeApp</Text>
+              
               <Text style={styles.modalText}>
                 SmokeApp aplikacija je dizajnirana sa ciljem da motiviše i
                 podrži osobe koje žele da se odviknu od pušenja tako što im
@@ -296,6 +306,13 @@ const styles = StyleSheet.create({
 
   boldirano: {
     fontFamily: "InterBold",
+  },
+
+  backgroundImg: {
+    width: "100%",
+    height: "100%",
+    position: "absolute",
+    resizeMode: "cover",
   },
 });
 
