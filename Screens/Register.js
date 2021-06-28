@@ -56,6 +56,8 @@ const Register = ({ navigation }) => {
   };
 
 
+  const myurl = 'https://smokeapp.digitalcube.rs';
+
   
 
   const [isSecureEntry, setIsSecureEntry] = useState(true);
@@ -70,7 +72,7 @@ const Register = ({ navigation }) => {
       quit_date: date,
     };
     axios
-      .post("https://smokeapp.digitalcube.rs/api/users/register", body)
+      .post(myurl + "/api/users/register", body)
       .then((r) => console.log(r.data))
       .catch((e) => console.log(e));
 
@@ -79,7 +81,7 @@ const Register = ({ navigation }) => {
 
   const getBrands = () => {
     axios
-      .get("https://smokeapp.digitalcube.rs/api/brands")
+      .get(myurl + "/api/brands")
 
       .then((r) => {
         
@@ -290,13 +292,13 @@ const Register = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => register()}
           style={{
-            marginHorizontal: wp("10%"),
+            marginHorizontal: wp("5%"),
             alignItems: "center",
             justifyContent: "center",
             marginTop: 30,
             backgroundColor: "#98B279",
             paddingVertical: 12,
-            width: wp("80%"),
+            width: wp("90%"),
             borderRadius: 100,
           }}
         >
@@ -345,11 +347,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 16,
     borderWidth: 2,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     backgroundColor: "#F2F2F2",
     borderColor: "#E8E8E8",
     borderRadius: 8,
-    paddingVertical: 7,
+    paddingVertical: 9,
     alignItems: "center",
     marginTop:15,
     marginBottom:15,

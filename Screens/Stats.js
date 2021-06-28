@@ -13,6 +13,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+const commaNumber = require("comma-number");
 
 const Progress = ({ step, steps, height }) => {
   const [width, setWidth] = React.useState(0);
@@ -30,7 +31,6 @@ const Progress = ({ step, steps, height }) => {
   React.useEffect(() => {
     reactive.setValue(-width + (width * step) / steps);
   }, [step, width]);
-
 
   return (
     <>
@@ -73,7 +73,9 @@ const Stats = () => {
   const [money, setMoney] = useState([]);
   const [perDay, setPerDay] = useState([]);
 
-  let url2 = `https://smokeapp.digitalcube.rs/api/f2/CalcCigarettes/` + state.id_user;
+  const myurl = "https://smokeapp.digitalcube.rs";
+
+  let url2 = myurl + `/api/f2/CalcCigarettes/` + state.id_user;
 
   useEffect(() => {
     if (state.id_user !== "") {
@@ -88,8 +90,7 @@ const Stats = () => {
     }
   }, [state.id_user]);
 
-  let url3 =
-    `https://smokeapp.digitalcube.rs/api/f3/CalcMoneyNotSpend/` + state.id_user;
+  let url3 = myurl + `/api/f3/CalcMoneyNotSpend/` + state.id_user;
 
   useEffect(() => {
     if (state.id_user !== "") {
@@ -104,8 +105,7 @@ const Stats = () => {
     }
   }, [state.id_user]);
 
-  let url4 =
-    `https://smokeapp.digitalcube.rs/api/f4/CalcMoneyPerDay/` + state.id_user;
+  let url4 = myurl + `/api/f4/CalcMoneyPerDay/` + state.id_user;
 
   useEffect(() => {
     if (state.id_user !== "") {
@@ -156,44 +156,33 @@ const Stats = () => {
         </View>
       </View>
 
-
-
-
-
       <View style={styles.rowrowrow}>
         <View>
-        <View style={styles.circle}>
-        <Text style={styles.number}>{number}</Text>
+          <View style={styles.circle}>
+            <Text style={styles.number}>{number}</Text>
+          </View>
         </View>
-          
-        </View>
-
 
         <View>
-        <View style={styles.circle}>
-        <Text style={styles.number}>
-            {total1.toFixed(1)}
-            <Text style={{ fontSize: 20 }}>K</Text>
-          </Text>
+          <View style={styles.circle}>
+            <Text style={styles.number}>
+              {total1.toFixed(1)}
+              <Text style={{ fontSize: 20 }}>K</Text>
+            </Text>
+          </View>
         </View>
- 
-        </View>
-
 
         <View>
-        <View style={styles.circle}>
-        <Text style={styles.number}>
-            {total.toFixed(0)}
-            <Text style={{ fontSize: 20 }}>K</Text>
-          </Text>
-        </View>
-
+          <View style={styles.circle}>
+            <Text style={styles.number}>
+              {total.toFixed(0)}
+              <Text style={{ fontSize: 20 }}>K</Text>
+            </Text>
+          </View>
         </View>
       </View>
 
-
-
-      <View style={{ marginVertical: hp("3%") }}>
+      <View style={styles.stednja}>
         <Text style={styles.TextSavings}>Štedim za:</Text>
         <Text style={styles.TextSavingsUnderline}>IMac Pro 2020 27"</Text>
         <View>
@@ -208,17 +197,19 @@ const Stats = () => {
         <View style={styles.rowrowrow1}>
           <View style={styles.row}>
             <Text style={styles.mainText1}>Sačuvano</Text>
-            <Text style={styles.number1}>{money} rsd</Text>
+            <Text style={styles.number1}>{commaNumber(money)} rsd</Text>
           </View>
 
           <View style={styles.row2}>
             <Text style={styles.mainText1}>Ostalo</Text>
-            <Text style={styles.number1}>{450000 - money} rsd</Text>
+            <Text style={styles.number1}>
+              {commaNumber(450000 - money)} rsd
+            </Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.mainText1}>Cilj</Text>
-            <Text style={styles.number1}>450000 rsd</Text>
+            <Text style={styles.number1}>{commaNumber(450000)} rsd</Text>
           </View>
         </View>
 
@@ -256,6 +247,11 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
+  stednja: {
+    marginTop: hp("5%"),
+    marginBottom: hp("2%"),
+  },
+
   topHeading: {
     alignItems: "flex-start",
     paddingVertical: wp("5%"),
@@ -278,7 +274,7 @@ const styles = StyleSheet.create({
   rowrowrow: {
     //paddingHorizontal: 5,
     flexDirection: "row",
-    flexWrap:'nowrap',
+    flexWrap: "nowrap",
     paddingVertical: 5,
     justifyContent: "space-around",
   },
@@ -316,7 +312,7 @@ const styles = StyleSheet.create({
     fontSize: wp("7.5%"),
     fontFamily: "InterRegular",
     color: "#333333",
-    alignSelf:'center',
+    alignSelf: "center",
   },
 
   TextSavings: {
@@ -353,7 +349,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width * 0.18,
     height: Dimensions.get("window").width * 0.18,
     backgroundColor: "rgba(152, 178, 121, 0.2)",
-    justifyContent:'center',
+    justifyContent: "center",
   },
 });
 

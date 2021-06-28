@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 import { Context } from "../context/Store";
 import { useEffect, useState } from "react";
+import {AiFillEye} from 'react-icons/fa';
 
 const Login = ({ navigation }) => {
   const [state, dispatch] = useContext(Context);
@@ -33,8 +34,10 @@ const Login = ({ navigation }) => {
       password: password,
     };
 
+    const myurl = 'https://smokeapp.digitalcube.rs';
+
     axios
-      .post("https://smokeapp.digitalcube.rs/api/users/login", body)
+      .post(myurl + "/api/users/login", body)
       .then((r) => {
         console.log(r.data);
         dispatch({ type: "SET_TOKEN", payload: r.data.id_session });
@@ -95,13 +98,13 @@ const Login = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => login()}
         style={{
-          marginHorizontal: wp("10%"),
+          marginHorizontal: wp("5%"),
           alignItems: "center",
           justifyContent: "center",
           marginTop: 30,
           backgroundColor: "#98B279",
           paddingVertical: 12,
-          width: wp("80%"),
+          width: wp("90%"),
           borderRadius: 100,
         }}
       >
@@ -153,11 +156,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderWidth: 2,
     marginTop: 15,
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
     backgroundColor: "#F2F2F2",
     borderColor: "#E8E8E8",
     borderRadius: 8,
-    paddingVertical: 7,
+    paddingVertical: 9,
     alignItems: "center",
   },
 

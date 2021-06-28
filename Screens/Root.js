@@ -8,8 +8,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableHighlight,
-  Image,
-  Alert,
+  TouchableOpacity,
   Modal,
   Pressable,
 } from "react-native";
@@ -26,11 +25,13 @@ const Root = () => {
     "Prvih 5 dana je najveci pritisak!\n \u00a0 \u00a0 \u00a0  \u00a0  \u00a0  \u00a0 \u00a0 \u00a0  Izdrzite!";
   const text4 = "Svaka cast! Bravo!";
 
+  const myurl = 'https://smokeapp.digitalcube.rs';
+
   const [state, dispatch] = useContext(Context);
 
   const [days, setDays] = useState([]);
   const [name, setName] = useState([]);
-  let url = `https://smokeapp.digitalcube.rs/api/f/CalcDays/` + state.id_user;
+  let url = myurl + `/api/f/CalcDays/` + state.id_user;
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -53,7 +54,7 @@ const Root = () => {
     }
   }, [state.id_user]);
 
-  let url1 = `https://smokeapp.digitalcube.rs/api/f1/str/` + state.id_user;
+  let url1 =  myurl + `/api/f1/str/` + state.id_user;
 
   useEffect(() => {
     if (state.id_user !== "") {
@@ -106,23 +107,21 @@ const Root = () => {
         <Text style={styles.underLineText}>{dani < 5 ? text1 : text4}</Text>
       </View>
 
-      <TouchableHighlight onPress={() => logout()} style={styles.button}>
+      <TouchableOpacity onPress={() => logout()} style={styles.button}>
         <View>
           <Text style={styles.buttonText}>Odjavi me</Text>
         </View>
-      </TouchableHighlight>
-      <TouchableHighlight
+      </TouchableOpacity>
+      <TouchableOpacity
         style={styles.button1}
         onPress={() => setModalVisible(!modalVisible)}
       >
         <View>
           <Text style={styles.buttonText}>O aplikaciji</Text>
         </View>
-      </TouchableHighlight>
+      </TouchableOpacity>
 
       <View style={styles.centeredView}>
- 
-        
         <Modal
           animationType="slide"
           transparent={true}
@@ -131,17 +130,14 @@ const Root = () => {
             setModalVisible(!modalVisible);
           }}
         >
-
-<ImageBackground
-          source={require("../src/images/About.png")}
-          style={styles.backgroundImg}
-        />
+          <ImageBackground
+            source={require("../src/images/About.png")}
+            style={styles.backgroundImg}
+          />
           <View style={styles.centeredView}>
-
             <View style={styles.modalView}>
-
               <Text style={styles.modalTextMain}>SmokeApp</Text>
-              
+
               <Text style={styles.modalText}>
                 SmokeApp aplikacija je dizajnirana sa ciljem da motiviše i
                 podrži osobe koje žele da se odviknu od pušenja tako što im
@@ -256,9 +252,9 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    fontFamily: "InterThin",
+    fontFamily: "InterRegular",
     color: "#98B279",
-    fontSize: 15,
+    fontSize: 16,
   },
   centeredView: {
     flex: 1,
@@ -267,12 +263,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   modalView: {
-    marginBottom:50,
-    marginHorizontal:15,
+    marginBottom: 50,
+    marginHorizontal: 15,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 50,
-    alignItems: "center",
+    padding: 20,
+    alignItems:'center',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -285,23 +281,23 @@ const styles = StyleSheet.create({
 
   textStyle: {
     color: "#98B279",
-    fontWeight: "bold",
+    fontFamily:'InterBold',
+    fontSize:15,
     textAlign: "center",
     marginTop: 20,
   },
 
   modalTextMain: {
     marginBottom: 15,
-    fontSize: 22,
+    fontSize: 25,
     fontFamily: "InterBold",
     textAlign: "center",
     color: "#98B279",
   },
   modalText: {
     marginBottom: 10,
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "InterRegular",
-    textAlign: "center",
   },
 
   boldirano: {

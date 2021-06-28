@@ -106,8 +106,9 @@ const Health = () => {
 
   const [state, dispatch] = useContext(Context);
   const [days, setDays] = useState([]);
+  const myurl = 'https://smokeapp.digitalcube.rs';
 
-  let url = `https://smokeapp.digitalcube.rs/api/f/CalcDays/` + state.id_user;
+  let url = myurl + `/api/f/CalcDays/` + state.id_user;
 
   useEffect(() => {
     if (state.id_user !== "") {
@@ -126,6 +127,7 @@ const Health = () => {
   const number = days
   
   return (
+    
     <View style={styles.heroContainer}>
       <View style={styles.topPart}>
         <Text style={styles.topPartTitle}>Zdravlje</Text>
@@ -152,7 +154,7 @@ const Health = () => {
                   flexDirection: "row",
                   paddingHorizontal: 5,
                   marginBottom: 15,
-                  paddingVertical: 5,
+                  paddingVertical: 8,
                   backgroundColor: "rgba(152, 178, 121, 0.2)",
                 }}
               >
@@ -220,7 +222,7 @@ const Health = () => {
                   flexDirection: "row",
                   paddingHorizontal: 5,
                   marginBottom: 15,
-                  paddingVertical: 5,
+                  paddingVertical: 8,
                 }}
               >
                 <View style={styles.dayz}>
@@ -266,7 +268,7 @@ const Health = () => {
 const styles = StyleSheet.create({
   heroContainer: {
     width: "100%",
-    height: Dimensions.get("window").height + 20,
+    height: Dimensions.get("window").height + 14,
     backgroundColor: "#FFF",
     padding: 10,
   },
