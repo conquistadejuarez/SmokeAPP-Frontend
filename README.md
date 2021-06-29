@@ -2,10 +2,16 @@
 <p align="center">Goal of this app is to help people stop smoking</p>
 <hr />
 
-
 <p align="center">
   <img src="Screenshots/Login.png" alt="Login screenshot" width="250px"/>
   <br>
   <i>Login Screen</i>
+  <br>
+</p>
+
+<p align="center">
+  <img src="Screenshots/Register.png" alt="Login screenshot" width="250px"/>
+  <br>
+  <i>Register Screen</i>
   <br>
 </p>
