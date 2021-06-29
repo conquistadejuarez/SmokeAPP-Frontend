@@ -4,7 +4,7 @@
 
 
 <p align="center">
-  <img src="screenshots/Login.png" alt="Login screenshot" width="250px"/>
+  <img src="Screenshots/Login.png" alt="Login screenshot" width="250px"/>
   <br>
   <i>Login Screen</i>
   <br>
